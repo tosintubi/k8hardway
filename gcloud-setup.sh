@@ -7,7 +7,6 @@ REGION=europe-west3
 ZONE=europe-west3-a
 
 
-
 function create_network {
     #creates the network
     echo "Creating VPC Network ......."
@@ -19,7 +18,6 @@ function create_network {
     --network kubernetes-the-hard-way \
     --region ${REGION} \
     --range 10.240.0.0/24
-
  
     #Firewall ingress rules
     echo "Creating Firewall Ingress Rules ......."
