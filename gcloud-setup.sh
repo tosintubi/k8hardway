@@ -39,7 +39,7 @@ function create_network {
 
 function create_controllers {
     echo "Creating controllers ............. "
-    for i in 0 1 2; do
+    for i in 0 1; do
         gcloud compute instances create controller-${i} \
             --async \
             --boot-disk-size 200GB \
@@ -57,7 +57,7 @@ function create_controllers {
 
 function create_workers {
     echo "Creating workers  ............. "
-    for i in 0 1 2; do
+    for i in 0 1; do
         gcloud compute instances create worker-${i} \
             --async \
             --boot-disk-size 200GB \
@@ -74,6 +74,18 @@ function create_workers {
     done
 }
 
+function create_static_ip {
+    gcloud compute addresses create kubernetes-the-hard-way \
+        --region ${REGION}
+       # --region $(gcloud config get-value compute/{REGION})
+}
+
+function check_static_ip {
+    gcloud compute addresses list --filter="name=('kubernetes-the-hard-way')"
+}
+
 create_network
 create_controllers
 create_workers
+create_static_ip
+check_static_ip
